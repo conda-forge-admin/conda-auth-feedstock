@@ -7,23 +7,23 @@ package:
 
 source:
   url: https://github.com/conda-incubator/{{ name }}/archive/refs/tags/{{ version }}.tar.gz
-  sha256: 66de60e079c2b6bfca34f95b09176ea8d082d1e3516c0564dba93a66e9ebb997
+  sha256: c0520d782f99f5c70fcccc3ada84091e75788d49c67cc61586a66b60653cc6f3
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8,<4.0
+    - python {{ python_min }}
     - pip
     - hatchling
     - hatch-vcs
   run:
-    - python >=3.8.1,<4.0.0
+    - python >={{ python_min }},<4.0.0
     - click
-    - conda >=23.9.0
+    - conda >=23.9.0,<26.9.0a0
     - keyring
     - requests
     - ruamel.yaml
@@ -37,6 +37,7 @@ test:
     - conda auth logout --help
   requires:
     - keyrings.alt
+    - python {{ python_min }}
 
 about:
   home: https://github.com/conda-incubator/conda-auth
